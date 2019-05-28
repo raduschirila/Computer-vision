@@ -18,6 +18,7 @@ from keras.preprocessing.image import image
 import numpy as np
 import h5py
 
+
 #Neural network architecture 
 #Convolution -> MaxPooling -> flatten->dense->output
 model=Sequential();
