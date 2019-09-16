@@ -12,10 +12,10 @@ import matplotlib as mpl
 mpl.rcParams['figure.figsize'] = (12,12)
 mpl.rcParams['axes.grid'] = False
 import tensorflow as tf
-
 import numpy as np
 import time
 import functools
+
 tf.enable_eager_execution()
 style_path = 'context.jpg'
 content_path = 'image.jpg'
@@ -43,6 +43,7 @@ def imshow(image, title=None):
   plt.imshow(image)
   if title:
     plt.title(title)
+    
 
 def vgg_layers(layer_names):
   """ Creates a vgg model that returns a list of intermediate output values."""
@@ -227,10 +228,11 @@ style_weight=1e-2
 content_weight=1e4
 
 epochs = 50
-steps_per_epoch = 10
+steps_per_epoch = 25
 
 for n in range(epochs):
   for m in range(steps_per_epoch):
+    print("Epoch: ",n,"  Step: ",m)
     train_step(image)
 
 imshow(image.read_value())
