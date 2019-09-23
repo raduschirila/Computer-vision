@@ -148,10 +148,10 @@ class StyleContentModel(tf.keras.models.Model):
 content_image = load_img(content_path)
 style_image = load_img(style_path)
 
-plt.subplot(1, 2, 1)
+plt.subplot(3, 1, 1)
 imshow(content_image, 'Content Image')
 
-plt.subplot(1, 2, 2)
+plt.subplot(3, 2, 1)
 imshow(style_image, 'Style Image')
 
 x = tf.keras.applications.vgg19.preprocess_input(content_image*255)
