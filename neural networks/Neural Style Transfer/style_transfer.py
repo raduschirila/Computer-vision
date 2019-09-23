@@ -15,6 +15,7 @@ import tensorflow as tf
 import numpy as np
 import time
 import functools
+import cv2
 
 tf.enable_eager_execution()
 style_path = 'context.jpg'
@@ -36,13 +37,15 @@ def load_img(path_to_img):
   img = img[tf.newaxis, :]
   return img
 
-def imshow(image, title=None):
+def imshow(image, epoch, step):
   if len(image.shape) > 3:
     image = tf.squeeze(image, axis=0)
 
-  plt.imshow(image)
-  if title:
-    plt.title(title)
+  #plt.imshow(image)
+  image = np.asarray(image); 
+  name = "result_"+str(epoch*100 + step) + ".png"
+  cv2.imshow("result",image)
+  cv2.imwrite(name, image * 255);
     
 
 def vgg_layers(layer_names):
@@ -148,11 +151,6 @@ class StyleContentModel(tf.keras.models.Model):
 content_image = load_img(content_path)
 style_image = load_img(style_path)
 
-plt.subplot(3, 1, 1)
-imshow(content_image, 'Content Image')
-
-plt.subplot(3, 2, 1)
-imshow(style_image, 'Style Image')
 
 x = tf.keras.applications.vgg19.preprocess_input(content_image*255)
 x = tf.image.resize(x, (224, 224))
@@ -234,7 +232,10 @@ for n in range(epochs):
   for m in range(steps_per_epoch):
     print("Epoch: ",n,"  Step: ",m)
     train_step(image)
+    if n%10 == 0:
+        if m % 5 == 0:
+            imshow(image.read_value(), n, m)
 
-imshow(image.read_value())
+imshow(image.read_value(), n, m )
 
 
