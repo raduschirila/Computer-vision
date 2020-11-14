@@ -14,7 +14,7 @@ from keras.layers.convolutional import UpSampling2D
 from keras.layers.convolutional import Conv2D, MaxPooling2D
 from keras.layers.core import Flatten
 from keras.optimizers import SGD
-from keras.datasets import mnist
+from keras.datasets import fashion_mnist as mnist
 import numpy as np
 from PIL import Image
 import argparse
